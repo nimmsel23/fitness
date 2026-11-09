@@ -150,6 +150,10 @@ jobs:
             "- After merge, bump the \`fitness/catalog/kb\` submodule in coach-dev" \
             "" \
             "Prompt for manual LLM webapps: \`.github/prompts/enrich-inbox.md\`")
-          gh pr create --base main --head "$branch" \
+          if ! gh pr create --base main --head "$branch" \
             --title "chore(inbox): CI enrichment — $FILES" \
-            --body "$body"
+            --body "$body"; then
+            echo "::warning::gh pr create blocked (enable Actions → Allow GitHub Actions to create PRs)."
+            echo "Branch pushed: $branch"
+            echo "Open: https://github.com/${GITHUB_REPOSITORY}/compare/main...${branch}?expand=1"
+          fi

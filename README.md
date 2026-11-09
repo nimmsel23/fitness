@@ -7,7 +7,7 @@ Python-Code (CLI, API, Katalog-Tools): `~/dev/coach-dev/fitness/` — Einstieg
 `coach catalog` (Alias `coach agent`). Altpfad `~/dev/fitness-cli` ist archiviert.
 
 Konsumenten lesen diese KB:
-- `coach-dev` — Live-Spiegel unter `fitness/catalog/kb/` (Drift zurück hierher spiegeln)
+- `coach-dev` — Git-Submodul unter `fitness/catalog/kb` (dieser Commit)
 - `fitness-dev`, `plan-dev` (Build-Skripte / Overlay; Override ggf. `FITNESS_AGENT_KB`)
 
 Historie: per `git subtree split` aus `coach-dev/fitness/catalog/kb` (Stand 2026-11-06).

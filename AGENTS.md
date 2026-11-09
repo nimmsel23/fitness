@@ -1,6 +1,6 @@
 # catalog/kb
 
-LLM-/GitHub-Zugang: Repo `nimmsel23/fitness` in der Webapp per GitHub-Connector anbinden.
+LLM-/GitHub-Zugang: öffentliches Repo `https://github.com/nimmsel23/fitness` (lesen ohne Auth; Schreiben per GitHub-Connector).
 Maschinen-Index: `llms.txt`. Inventar: `MANIFEST.yml`.
 
 Beim Frontend-Build werden alle ymls klientsetig importiert.

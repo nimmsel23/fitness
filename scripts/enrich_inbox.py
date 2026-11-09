@@ -240,7 +240,7 @@ def main() -> int:
     ap.add_argument("--limit", type=int, default=1, help="max files when --file omitted")
     ap.add_argument("--feedback", default="", help="optional coach feedback")
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--model", default=os.environ.get("GEMINI_MODEL", "gemini-2.0-flash"))
+    ap.add_argument("--model", default=os.environ.get("GEMINI_MODEL", "gemini-2.5-flash"))
     args = ap.parse_args()
 
     if args.list:

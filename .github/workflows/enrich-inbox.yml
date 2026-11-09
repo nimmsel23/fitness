@@ -87,6 +87,7 @@ jobs:
         id: enrich
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: gemini-2.5-flash
           FILE: ${{ steps.args.outputs.file }}
           LIMIT: ${{ steps.args.outputs.limit }}
           FEEDBACK: ${{ steps.args.outputs.feedback }}

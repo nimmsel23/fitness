@@ -25,6 +25,8 @@ gh api repos/nimmsel23/fitness/dispatches -f event_type=enrich-inbox \
 Skript: [`scripts/enrich_inbox.py`](./scripts/enrich_inbox.py) · Workflow: `.github/workflows/enrich-inbox.yml`  
 Ergebnis = PR auf `inbox/` (kein Auto-Approve nach `exercises/`).
 
+Zielbild Inbox = GitHub-PRs: [`INBOX.md`](./INBOX.md).
+
 ## Layout
 
 | Pfad | Inhalt |

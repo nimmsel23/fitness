@@ -83,13 +83,6 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Require Gemini secret
-        if: ${{ secrets.GEMINI_API_KEY == '' }}
-        run: |
-          echo "::error::GEMINI_API_KEY secret missing on nimmsel23/fitness"
-          echo "Without it, use .github/prompts/enrich-inbox.md via an LLM GitHub connector."
-          exit 1
-
       - name: Enrich inbox YAML
         id: enrich
         env:
@@ -100,6 +93,11 @@ jobs:
           DRY: ${{ steps.args.outputs.dry_run }}
         run: |
           set -euo pipefail
+          if [ -z "${GEMINI_API_KEY:-}" ]; then
+            echo "::error::GEMINI_API_KEY secret missing on nimmsel23/fitness"
+            echo "Without it, use .github/prompts/enrich-inbox.md via an LLM GitHub connector."
+            exit 1
+          fi
           args=(--limit "$LIMIT")
           if [ -n "$FILE" ]; then
             args=(--file "$FILE")

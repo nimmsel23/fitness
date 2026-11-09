@@ -10,6 +10,7 @@
 - Agent rules: https://github.com/nimmsel23/fitness/blob/main/AGENTS.md
 - This index: https://github.com/nimmsel23/fitness/blob/main/llms.txt
 - File manifest: https://github.com/nimmsel23/fitness/blob/main/MANIFEST.yml
+- Inbox = PRs (target): https://github.com/nimmsel23/fitness/blob/main/INBOX.md
 
 ## Layout (repo root = former catalog/kb)
 

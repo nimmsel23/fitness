@@ -1,15 +1,35 @@
-# fitness — Daten-Repo (KB)
+# fitness — KB-Daten-Repo (`catalog/kb`)
 
-Die Fitness-Wissensbasis (Übungen, Anatomie-Lehre, Muskeln, Coaching-Notes, Regeln, Registry) als YAML.
-**Nur Daten, kein Code.** Das ist die **KB-Daten-SOT**.
+VitalOS Exercise Knowledge Base. **Nur YAML-Daten, kein App-Code.**
 
-Python-Code (CLI, API, Katalog-Tools): `~/dev/coach-dev/fitness/` — Einstieg
-`coach catalog` (Alias `coach agent`). Altpfad `~/dev/fitness-cli` ist archiviert.
+Repo: https://github.com/nimmsel23/fitness  
+Lokal: `~/dev/fitness` · in `coach-dev` als Submodul `fitness/catalog/kb`
 
-Konsumenten lesen diese KB:
-- `coach-dev` — Git-Submodul unter `fitness/catalog/kb` (dieser Commit)
-- `fitness-dev`, `plan-dev` (Build-Skripte / Overlay; Override ggf. `FITNESS_AGENT_KB`)
+## LLM-Webapps (ChatGPT / Claude / Grok / …)
 
-Historie: per `git subtree split` aus `coach-dev/fitness/catalog/kb` (Stand 2026-11-06).
+1. In der Webapp **GitHub verbinden** (Account `nimmsel23` bzw. Zugriff auf dieses Repo).
+2. Repo **`nimmsel23/fitness`** öffnen / anbinden.
+3. Zuerst [`llms.txt`](./llms.txt) lesen, dann [`AGENTS.md`](./AGENTS.md).
+4. Dateien über den GitHub-Connector lesen/schreiben (PRs oder direkte Edits je nach Tool).
 
-Ownership-Karte: `~/dev/coach-dev/docs/OWNERSHIP-MAP.md`.
+Einstieg für Maschinen: [`llms.txt`](./llms.txt) · Inventar: [`MANIFEST.yml`](./MANIFEST.yml)
+
+Repo ist **privat** — Zugriff nur mit verbundenem GitHub-Account, der Leserecht hat.
+
+## Layout
+
+| Pfad | Inhalt |
+|------|--------|
+| `exercises/` | freigegebene Expert-Übungen |
+| `inbox/` | Drafts vor Coach-Freigabe |
+| `muscles/` | Muskeln + Regions-Buckets |
+| `anatomy_teaching/` | Teaching-Layer |
+| `coaching_notes/` | kurze Coaching-Notes |
+| `rules/` | Katalog-Regeln |
+| `registry/` | wger/yuhonas-Lookups |
+
+## Konsumenten
+
+- `coach-dev` — Submodul unter `fitness/catalog/kb`
+- Catalog-Python/CLI — `~/dev/coach-dev/fitness/catalog/` (`coach catalog`)
+- Ownership: `~/dev/coach-dev/docs/OWNERSHIP-MAP.md`

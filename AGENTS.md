@@ -1,4 +1,8 @@
 # catalog/kb
+
+LLM-/GitHub-Zugang: Repo `nimmsel23/fitness` in der Webapp per GitHub-Connector anbinden.
+Maschinen-Index: `llms.txt`. Inventar: `MANIFEST.yml`.
+
 Beim Frontend-Build werden alle ymls klientsetig importiert.
 Dies soll app-geschwindigkeit erhöhen wie auch firestore-quota schonen & offline-verwendbarkeit vereinfachen.
 

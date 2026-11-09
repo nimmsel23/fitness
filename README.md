@@ -39,6 +39,8 @@ Zielbild Inbox = GitHub-PRs: [`INBOX.md`](./INBOX.md).
 | `rules/` | Katalog-Regeln |
 | `registry/` | wger/yuhonas-Lookups |
 | `vendor/free-exercise-db/` | gepinntes Submodul [yuhonas/free-exercise-db](https://github.com/yuhonas/free-exercise-db) (Bulk/Bilder); SHA in `yuhonas.ref` |
+| `vendor/fma/` | gepinntes Submodul [uw-sig/FMA](https://github.com/uw-sig/FMA) **5.1.0**; SHA in `fma.ref` — Konzept-Ontology (`fma_id` in `muscles/`) |
+| `registry/fma_kb_map.yml` | Katalog-Muskel ↔ FMA-IRI (52 Links); Voll-OWL optional via `scripts/fetch_fma_owl.sh` (Git LFS) |
 | `exercises/unreviewed_wger.yml` | **Wger-Bulk-Quelle** in der KB — Snapshot aus lokalem wger-API-Import (kein Git-Upstream wie yuhonas) |
 
 ## Konsumenten

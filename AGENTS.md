@@ -3,6 +3,7 @@
 LLM-/GitHub-Zugang: öffentliches Repo `https://github.com/nimmsel23/fitness` (lesen ohne Auth; Schreiben per GitHub-Connector).
 Maschinen-Index: `llms.txt`. Inventar: `MANIFEST.yml`.
 Upstream-Bulk yuhonas: Submodul `vendor/free-exercise-db` (Pin `yuhonas.ref`) — nach Clone `git submodule update --init`.
+Anatomy-Ontology: Submodul `vendor/fma` (Pin `fma.ref`, FMA 5.1.0). `muscles/` bleibt selfmade Expert-SSOT mit `fma_id`; Map `registry/fma_kb_map.yml`. Volles `fma.owl` nur bei Bedarf: `scripts/fetch_fma_owl.sh` (Git LFS).
 
 Beim Frontend-Build werden alle ymls klientsetig importiert.
 Dies soll app-geschwindigkeit erhöhen wie auch firestore-quota schonen & offline-verwendbarkeit vereinfachen.

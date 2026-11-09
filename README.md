@@ -7,14 +7,23 @@ Lokal: `~/dev/fitness` · in `coach-dev` als Submodul `fitness/catalog/kb`
 
 ## LLM-Webapps (ChatGPT / Claude / Grok / …)
 
-1. In der Webapp **GitHub verbinden** (Account `nimmsel23` bzw. Zugriff auf dieses Repo).
-2. Repo **`nimmsel23/fitness`** öffnen / anbinden.
-3. Zuerst [`llms.txt`](./llms.txt) lesen, dann [`AGENTS.md`](./AGENTS.md).
-4. Dateien über den GitHub-Connector lesen/schreiben (PRs oder direkte Edits je nach Tool).
+1. Repo **`nimmsel23/fitness`** öffnen (public — Lesen ohne Auth).
+2. Zuerst [`llms.txt`](./llms.txt), dann [`AGENTS.md`](./AGENTS.md).
+3. Inbox-Enrichment-Prompt: [`.github/prompts/enrich-inbox.md`](./.github/prompts/enrich-inbox.md).
 
-Einstieg für Maschinen: [`llms.txt`](./llms.txt) · Inventar: [`MANIFEST.yml`](./MANIFEST.yml)
+## CI-Enrichment (Cloud-Fallback)
 
-Repo ist **public** — LLMs können ohne Extra-Rechte lesen; Schreiben weiter über verbundenen GitHub-Account.
+Laptop-`coach-sync` bleibt Primärpfad. Offline/Cloud:
+
+```bash
+gh workflow run "Enrich Inbox" -R nimmsel23/fitness -f limit=1
+# oder:
+gh api repos/nimmsel23/fitness/dispatches -f event_type=enrich-inbox \
+  -f client_payload='{"limit":"1"}'
+```
+
+Skript: [`scripts/enrich_inbox.py`](./scripts/enrich_inbox.py) · Workflow: `.github/workflows/enrich-inbox.yml`  
+Ergebnis = PR auf `inbox/` (kein Auto-Approve nach `exercises/`).
 
 ## Layout
 

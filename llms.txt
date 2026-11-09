@@ -31,6 +31,12 @@
 4. Approved expert truth is only `exercises/` after coach gate.
 5. Do not invent a second KB copy; this repo is the data SOT. Catalog Python lives in coach-dev.
 
+## Cloud enrichment fallback
+
+- Manual / LLM prompt: `.github/prompts/enrich-inbox.md`
+- CI: Actions workflow `Enrich Inbox` (`workflow_dispatch` or `repository_dispatch` `enrich-inbox`)
+- Script: `scripts/enrich_inbox.py` (Gemini → PR on `inbox/` only)
+
 ## Consumers
 
 - coach-dev submodule path: `fitness/catalog/kb`

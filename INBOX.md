@@ -19,7 +19,7 @@ Bulk-Rohstoff (zwei Quellen):
 
 | Quelle | In der KB |
 |--------|-----------|
-| **yuhonas** | Submodul `vendor/free-exercise-db` (`yuhonas.ref`) + Dump `exercises/unreviewed_yuhonas.yml` |
+| **yuhonas** | Submodul `vendor/free-exercise-db` (`yuhonas.ref`) → `dist/exercises.json` (kein Dump mehr) |
 | **wger** | Dump `exercises/unreviewed_wger.yml` (Import von lokalem wger-API; kein paralleles Git-Upstream) |
 
 Inbox-Drafts tragen `wger_id` / `yuhonas_id`. Expert-Truth erst nach Gate in

@@ -268,7 +268,6 @@ files:
   bytes: 4939
 - path: exercises/unreviewed_wger.yml
   bytes: 619816
-- path: exercises/unreviewed_yuhonas.yml
   bytes: 916502
 - path: exercises/wger_1489.yml
   bytes: 6107

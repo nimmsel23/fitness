@@ -23,7 +23,7 @@
 - `rules/` — catalog rules
 - `registry/` — external id maps (wger / yuhonas), not training logic
 - `vendor/free-exercise-db/` — pinned upstream submodule (yuhonas); SHA in `yuhonas.ref`
-- `exercises/unreviewed_yuhonas.yml` — yuhonas bulk dump
+- `vendor/free-exercise-db/dist/exercises.json` — yuhonas live bulk (submodule)
 - `exercises/unreviewed_wger.yml` — wger bulk source (API snapshot; no git submodule)
 - `activities.yml`, `config.yml`, `wger_mapping.yml`, `external_db_mapping.yml`
 

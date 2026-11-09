@@ -39,7 +39,6 @@ Zielbild Inbox = GitHub-PRs: [`INBOX.md`](./INBOX.md).
 | `rules/` | Katalog-Regeln |
 | `registry/` | wger/yuhonas-Lookups |
 | `vendor/free-exercise-db/` | gepinntes Submodul [yuhonas/free-exercise-db](https://github.com/yuhonas/free-exercise-db) (Bulk/Bilder); SHA in `yuhonas.ref` |
-| `exercises/unreviewed_yuhonas.yml` | Yuhonas-Bulk-Dump (aus dem Pin abgeleitet / Import) |
 | `exercises/unreviewed_wger.yml` | **Wger-Bulk-Quelle** in der KB — Snapshot aus lokalem wger-API-Import (kein Git-Upstream wie yuhonas) |
 
 ## Konsumenten

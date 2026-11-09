@@ -2,6 +2,7 @@
 
 LLM-/GitHub-Zugang: öffentliches Repo `https://github.com/nimmsel23/fitness` (lesen ohne Auth; Schreiben per GitHub-Connector).
 Maschinen-Index: `llms.txt`. Inventar: `MANIFEST.yml`.
+Upstream-Bulk yuhonas: Submodul `vendor/free-exercise-db` (Pin `yuhonas.ref`) — nach Clone `git submodule update --init`.
 
 Beim Frontend-Build werden alle ymls klientsetig importiert.
 Dies soll app-geschwindigkeit erhöhen wie auch firestore-quota schonen & offline-verwendbarkeit vereinfachen.

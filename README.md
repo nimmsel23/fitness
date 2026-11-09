@@ -38,6 +38,7 @@ Zielbild Inbox = GitHub-PRs: [`INBOX.md`](./INBOX.md).
 | `coaching_notes/` | kurze Coaching-Notes |
 | `rules/` | Katalog-Regeln |
 | `registry/` | wger/yuhonas-Lookups |
+| `vendor/free-exercise-db/` | gepinntes Submodul [yuhonas/free-exercise-db](https://github.com/yuhonas/free-exercise-db) (Bulk/Bilder); SHA in `yuhonas.ref` |
 
 ## Konsumenten
 

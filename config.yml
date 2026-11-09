@@ -27,8 +27,10 @@ wger:
 
 external_dbs:
   yuhonas_free_exercise_db:
-    enabled: false
-    local_path: "~/code/free-exercise-db"
+    enabled: true
+    # Pinned submodule in this repo (same SHA as plan-dev vendor pin).
+    local_path: "vendor/free-exercise-db"
+    pin_file: "yuhonas.ref"
     cache_file: "~/.aos/fitness/cache/external_exercises.json"
 
 behavior:

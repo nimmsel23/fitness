@@ -15,6 +15,10 @@ lesbar; **Source of Truth für Drafts wandert auf Git.**
 
 Firestore `coachInbox` / `fitness/*/inbox` wird Cache/Spiegel, nicht Gate.
 
+Bulk-Rohstoff yuhonas: Submodul `vendor/free-exercise-db` (Pin `yuhonas.ref`,
+gleicher Stand wie Plan). Inbox-Drafts referenzieren `yuhonas_id` daraus;
+Expert-Truth bleibt `exercises/` nach Gate.
+
 ## CI
 
 - Workflow: `.github/workflows/enrich-inbox.yml`

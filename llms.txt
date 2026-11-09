@@ -22,6 +22,7 @@
 - `coaching_notes/` — short coaching drops
 - `rules/` — catalog rules
 - `registry/` — external id maps (wger / yuhonas), not training logic
+- `vendor/free-exercise-db/` — pinned upstream submodule (yuhonas); SHA in `yuhonas.ref`
 - `activities.yml`, `config.yml`, `wger_mapping.yml`, `external_db_mapping.yml`
 
 ## How to use

@@ -14,7 +14,7 @@ Lokal: `~/dev/fitness` · in `coach-dev` als Submodul `fitness/catalog/kb`
 
 Einstieg für Maschinen: [`llms.txt`](./llms.txt) · Inventar: [`MANIFEST.yml`](./MANIFEST.yml)
 
-Repo ist **privat** — Zugriff nur mit verbundenem GitHub-Account, der Leserecht hat.
+Repo ist **public** — LLMs können ohne Extra-Rechte lesen; Schreiben weiter über verbundenen GitHub-Account.
 
 ## Layout
 

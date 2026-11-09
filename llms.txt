@@ -2,7 +2,7 @@
 # https://github.com/nimmsel23/fitness
 # Data only (YAML). No app code. German coaching KB.
 
-> For LLM web apps (ChatGPT / Claude / Grok / Cursor): connect GitHub to account `nimmsel23`, then open this private repo. Start here, then read AGENTS.md and the paths below.
+> Public repo. LLM web apps can read freely; connect GitHub to write/PRs. Start here, then read AGENTS.md and the paths below.
 
 ## Entry
 

@@ -4,9 +4,15 @@ LLM-/GitHub-Zugang: öffentliches Repo `https://github.com/nimmsel23/fitness` (l
 Maschinen-Index: `llms.txt`. Inventar: `MANIFEST.yml`.
 Upstream-Bulk yuhonas: Submodul `vendor/free-exercise-db` (Pin `yuhonas.ref`) — nach Clone `git submodule update --init`.
 Anatomy-Ontology: Submodul `vendor/fma` (Pin `fma.ref`, FMA 5.1.0). `muscles/` bleibt selfmade Expert-SSOT mit `fma_id`; Map `registry/fma_kb_map.yml`. Volles `fma.owl` nur bei Bedarf: `scripts/fetch_fma_owl.sh` (Git LFS).
+3D-Meshes: BodyParts3D 4.0 Indexes unter `vendor/bodyparts3d/` (Pin `bp3d.ref`, CC BY 4.0). Map `registry/bp3d_kb_map.yml` (+ `.json`) = catalog → FMA → `FJ####.obj`. OBJs nicht im Git — `scripts/build_bp3d_kb_map.py` + `scripts/fetch_bodyparts3d_meshes.sh`.
 
 Beim Frontend-Build werden alle ymls klientsetig importiert.
 Dies soll app-geschwindigkeit erhöhen wie auch firestore-quota schonen & offline-verwendbarkeit vereinfachen.
+
+# Inbox-Rollen (Stand 2026-11-10)
+
+- **Dieses Repo / GitHub App / Agents:** Drafts als PRs unter `inbox/` anlegen und anreichern. Details: `INBOX.md`.
+- **Coach-UI / Laptop:** Expert-Gate (`approve` → `exercises/`). Die Coach-App steuert keine GitHub-PRs.
 
 
 # /muscles/*

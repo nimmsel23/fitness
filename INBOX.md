@@ -1,40 +1,58 @@
-# Exercise Inbox = GitHub PRs (Zielbild)
+# Exercise Inbox — wer macht was (Stand 2026-11-10)
 
-Stand 2026-11-09. Primärpfad Laptop-`coach-sync` + Firestore bleibt vorerst
-lesbar; **Source of Truth für Drafts wandert auf Git.**
+Zwei getrennte Flächen. **Nicht vermischen.**
 
-## Modell
+| Fläche | Für wen | Rolle |
+|--------|---------|--------|
+| **GitHub** (`nimmsel23/fitness`) | GitHub App, LLM-Webapps, Coding-Agents | Drafts anlegen/anreichern/reviewen als PRs unter `inbox/` |
+| **Coach (Laptop)** | Daniel / Coach-UI / `coach-sync` / `coach catalog` | Menschliches Expert-Gate → Freigabe nach `exercises/` |
 
-| Aktion | GitHub |
-|--------|--------|
+Git ist **nicht** die Steuerfläche der Coach-UI. vos-coach steuert keine
+`repository_dispatch`-Calls und kein PR-Merge als Freigabe-Workflow.
+
+## GitHub / Agents (Draft-Arbeit)
+
+| Aktion | Auf GitHub |
+|--------|------------|
 | Neuer Draft | Branch + PR: `inbox/<id>.yml` (noch nicht in `exercises/`) |
-| Anreichern | CI `Enrich Inbox` oder LLM-Prompt → neuer Commit auf dem PR-Branch |
+| Anreichern | CI `Enrich Inbox`, Prompt `.github/prompts/enrich-inbox.md`, oder Agent-Commit auf dem PR-Branch |
 | Review | PR Conversation / Checks |
-| Freigabe | separater Approve-Schritt: Datei nach `exercises/` (eigener Commit/PR oder Label+Action) — **Merge allein ≠ Expert-Approve** |
 | Verwerfen | PR schließen |
+| Nach Merge von Inbox-PRs | Datei liegt weiter in `inbox/` — **Merge ≠ Expert-Approve** |
 
-Firestore `coachInbox` / `fitness/*/inbox` wird Cache/Spiegel, nicht Gate.
-
-Bulk-Rohstoff (zwei Quellen):
-
-| Quelle | In der KB |
-|--------|-----------|
-| **yuhonas** | Submodul `vendor/free-exercise-db` (`yuhonas.ref`) → `dist/exercises.json` (kein Dump mehr) |
-| **wger** | Dump `exercises/unreviewed_wger.yml` (Import von lokalem wger-API; kein paralleles Git-Upstream) |
-
-Inbox-Drafts tragen `wger_id` / `yuhonas_id`. Expert-Truth erst nach Gate in
-`exercises/<id>.yml` (nicht die `unreviewed_*` Bulks).
-
-## CI
+Hilfen im Repo:
 
 - Workflow: `.github/workflows/enrich-inbox.yml`
 - Prompt: `.github/prompts/enrich-inbox.md`
 - Skript: `scripts/enrich_inbox.py`
-- Liste offener Inbox-PRs: `scripts/list_inbox_prs.py`
+- Offene Inbox-PRs listen: `scripts/list_inbox_prs.py`
 
-## Coach-UI (Übergang)
+## Coach (Expert-Gate)
 
-1. **Jetzt:** Firestore-Inbox + optional PR-Liste (read-only) aus public API.
-2. **Als Nächstes:** Coach-Inbox-Tab zeigt offene PRs (`inbox/**`); Aktionen
-   triggern `repository_dispatch` / PR-Comments statt `coachCommands`.
-3. **Später:** Firestore-Inbox-Writes abschalten; Mirror nur noch aus Git.
+| Aktion | Auf dem Laptop |
+|--------|----------------|
+| Inbox lesen / reviewen | Coach-UI, Catalog-UI, `coach catalog` / `fitness-catalog inbox …` |
+| Anreichern (primär) | `coach-sync` + lokale Pipeline (Gemini/CLI) |
+| Freigabe | `approve` → Datei nach `exercises/<id>.yml` (+ Build zieht Expert-JS) |
+| Firestore `coachInbox` / `fitness/*/inbox` | Cache / Offline-Spiegel, **nicht** Gate und **nicht** Agent-SOT |
+
+Optional: vos-coach darf offene GitHub-Inbox-PRs **read-only** einblenden
+(`listGithubInboxPrs`) — nur Überblick. Approve/Reenrich/Delete für PR-Items
+öffnen GitHub bzw. verweisen dorthin; sie ersetzen das Laptop-Gate nicht.
+
+## Nahtstelle
+
+1. Agent/GitHub App liefert oder verbessert `inbox/*.yml` per PR.
+2. Nach Merge (oder parallelem Sync) liegt der Draft in der KB / im Submodul.
+3. Coach approved lokal → `exercises/`.
+4. Konsumenten (`coach-dev` / `fitness-dev`) bumpen den Submodul-Pointer und bauen.
+
+## Bulk-Rohstoff (nicht Gate)
+
+| Quelle | In der KB |
+|--------|-----------|
+| **yuhonas** | Submodul `vendor/free-exercise-db` (`yuhonas.ref`) → `dist/exercises.json` |
+| **wger** | Dump `exercises/unreviewed_wger.yml` |
+
+Inbox-Drafts tragen `wger_id` / `yuhonas_id`. Expert-Truth erst nach Coach-Gate
+in `exercises/<id>.yml`.

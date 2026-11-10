@@ -2,7 +2,9 @@
 # https://github.com/nimmsel23/fitness
 # Data only (YAML). No app code. German coaching KB.
 
-> Public repo. LLM web apps can read freely; connect GitHub to write/PRs. Start here, then read AGENTS.md and the paths below.
+> Public repo. For GitHub App + LLM/coding agents (read freely; write via PRs).
+> Coach-UI / laptop approve is a separate human gate — not driven from this repo's Actions by the Coach app.
+> Start here, then read AGENTS.md and the paths below.
 
 ## Entry
 
@@ -10,7 +12,7 @@
 - Agent rules: https://github.com/nimmsel23/fitness/blob/main/AGENTS.md
 - This index: https://github.com/nimmsel23/fitness/blob/main/llms.txt
 - File manifest: https://github.com/nimmsel23/fitness/blob/main/MANIFEST.yml
-- Inbox = PRs (target): https://github.com/nimmsel23/fitness/blob/main/INBOX.md
+- Inbox roles (GitHub/Agents vs Coach): https://github.com/nimmsel23/fitness/blob/main/INBOX.md
 
 ## Layout (repo root = former catalog/kb)
 
@@ -26,6 +28,8 @@
 - `vendor/free-exercise-db/dist/exercises.json` — yuhonas live bulk (submodule)
 - `vendor/fma/` — pinned FMA 5.1.0 (uw-sig/FMA); SHA in `fma.ref` — OWL via Git LFS
 - `registry/fma_kb_map.yml` — catalog muscle id ↔ FMA IRI
+- `vendor/bodyparts3d/` — BodyParts3D 4.0 indexes (CC BY 4.0); pin `bp3d.ref`
+- `registry/bp3d_kb_map.yml` / `.json` — catalog muscle ↔ FJ####.obj meshes (Learn 3D)
 - `exercises/unreviewed_wger.yml` — wger bulk source (API snapshot; no git submodule)
 - `activities.yml`, `config.yml`, `wger_mapping.yml`, `external_db_mapping.yml`
 

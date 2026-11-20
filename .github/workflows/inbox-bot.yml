@@ -141,15 +141,15 @@ jobs:
               if m: by_file.setdefault(m.group(1), i["number"])
           known = {f["file"] for f in files}
           for f in files:
-              print(f"keep\t{f['file']}\t{by_file.get(f['file'], '')}\t{f['name']}")
+              print(f"keep\t{f['file']}\t{by_file.get(f['file'], '-')}\t{f['name']}")
           for path, num in by_file.items():
               if path not in known:
-                  print(f"gone\t{path}\t{num}\t")
+                  print(f"gone\t{path}\t{num}\t-")
           PY
           while IFS=$'\t' read -r action file num name; do
             if [ "$action" = gone ]; then
               gh issue close "$num" --reason completed --comment "Draft \`$file\` liegt nicht mehr in \`inbox/\` (freigegeben, verschoben oder gelöscht)." >/dev/null
-            elif [ -z "$num" ]; then
+            elif [ "$num" = "-" ]; then
               python3 scripts/inbox_bot.py summary --file "$file" > "$RUNNER_TEMP/body.md"
               gh issue create --title "Übung prüfen: $name" --label inbox --body-file "$RUNNER_TEMP/body.md" >/dev/null
               echo "Issue angelegt: $file"

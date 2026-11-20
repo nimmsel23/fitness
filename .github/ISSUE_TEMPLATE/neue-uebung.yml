@@ -1,0 +1,27 @@
+name: Neue Übung
+description: Übung in die Inbox legen — der Bot legt den Draft an und reichert ihn mit KI an.
+title: "Neue Übung: "
+labels: ["neue-uebung"]
+body:
+  - type: input
+    attributes:
+      label: Name (deutsch)
+      placeholder: Weiter Untergriff-Klimmzug
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Name (englisch)
+      placeholder: Wide Grip Chin-Up
+  - type: textarea
+    attributes:
+      label: Notizen
+      description: Was ist das Besondere? Griff, Gerät, worauf achten — geht als Hinweis an die KI.
+  - type: input
+    attributes:
+      label: wger-ID
+      description: Nur wenn du sicher bist, dass es GENAU diese Übung ist.
+  - type: input
+    attributes:
+      label: yuhonas-ID
+      description: z. B. Wide-Grip_Lat_Pulldown — nur bei exakt gleicher Übung.

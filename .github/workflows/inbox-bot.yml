@@ -1,0 +1,159 @@
+# Übungs-Inbox über GitHub-Issues — läuft komplett in der Cloud, kein Laptop nötig.
+#
+#   Neue Übung      → Issue „Neue Übung“ (Formular) → Draft inbox/inbox_<name>.yml + KI-Anreicherung
+#   Jeder Draft     → genau ein offenes Issue (Label `inbox`) mit lesbarer Zusammenfassung
+#   Befehle         → Kommentar: /approve /reenrich /unlink /link /name /reject  (scripts/inbox_bot.py)
+#   Quick-Edit      → Datei direkt auf GitHub bearbeiten; der Push hält das Issue aktuell
+#
+# Nur OWNER/MEMBER/COLLABORATOR dürfen Befehle auslösen (Repo ist öffentlich).
+# Bot-Pushes mit GITHUB_TOKEN lösen keine weiteren Workflows aus → kein Loop;
+# deshalb aktualisiert jeder Lauf das Issue selbst.
+name: Inbox-Bot
+
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+  push:
+    branches: [main]
+    paths: ["inbox/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: inbox-bot
+  cancel-in-progress: false
+
+jobs:
+  bot:
+    if: >-
+      github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issues' &&
+        contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association) &&
+        (contains(github.event.issue.labels.*.name, 'neue-uebung') || startsWith(github.event.issue.title, 'Neue Übung'))) ||
+      (github.event_name == 'issue_comment' && !github.event.issue.pull_request &&
+        contains(github.event.issue.labels.*.name, 'inbox') &&
+        startsWith(github.event.comment.body, '/') &&
+        contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: gemini-2.5-flash
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Vorbereiten
+        run: |
+          pip install --quiet pyyaml
+          git config user.name "inbox-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          gh label create inbox --color 0E8A16 --description "Übungs-Draft zur Prüfung" --force >/dev/null
+          gh label create neue-uebung --color 1D76DB --description "Neue Übung anlegen" --force >/dev/null
+          cat > "$RUNNER_TEMP/lib.sh" <<'SH'
+          commit_push() {
+            git add -A inbox exercises
+            git diff --cached --quiet && return 0
+            git commit -q -m "$1"
+            for i in 1 2 3; do
+              git pull -q --rebase origin main && git push -q origin HEAD:main && return 0
+              sleep 3
+            done
+            return 1
+          }
+          refresh_issue() {  # $1 issue, $2 file
+            python3 scripts/inbox_bot.py summary --file "$2" > "$RUNNER_TEMP/body.md"
+            gh issue edit "$1" --body-file "$RUNNER_TEMP/body.md" >/dev/null
+          }
+          SH
+
+      - name: Neue Übung aus Issue
+        if: github.event_name == 'issues'
+        env:
+          ISSUE: ${{ github.event.issue.number }}
+          TITLE: ${{ github.event.issue.title }}
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+          source "$RUNNER_TEMP/lib.sh"
+          result=$(python3 scripts/inbox_bot.py new --title "$TITLE" --body "$BODY")
+          echo "$result"
+          msg=$(jq -r .message <<<"$result")
+          file=$(jq -r '.file // empty' <<<"$result")
+          if [ -z "$file" ]; then gh issue comment "$ISSUE" --body "⚠️ $msg"; exit 0; fi
+          name=$(python3 -c "import json,sys; print(next((x['name'] for x in json.load(sys.stdin) if x['file']=='$file'), ''))" < <(python3 scripts/inbox_bot.py list))
+          commit_push "inbox: neuer Draft ${file} (#${ISSUE})"
+          gh issue edit "$ISSUE" --add-label inbox --title "Übung prüfen: ${name}" >/dev/null
+          refresh_issue "$ISSUE" "$file"
+          gh issue comment "$ISSUE" --body "$msg"
+
+      - name: Befehl aus Kommentar
+        if: github.event_name == 'issue_comment'
+        env:
+          ISSUE: ${{ github.event.issue.number }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          TEXT: ${{ github.event.comment.body }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+        run: |
+          set -euo pipefail
+          source "$RUNNER_TEMP/lib.sh"
+          gh api -X POST "repos/$GH_REPO/issues/comments/$COMMENT_ID/reactions" -f content=eyes >/dev/null || true
+          file=$(grep -o 'inbox-file:[^ ]*' <<<"$ISSUE_BODY" | head -1 | cut -d: -f2 || true)
+          if [ -z "$file" ]; then gh issue comment "$ISSUE" --body "⚠️ Kein Draft mit diesem Issue verknüpft."; exit 0; fi
+          result=$(python3 scripts/inbox_bot.py command --file "$file" --text "$TEXT")
+          echo "$result"
+          msg=$(jq -r .message <<<"$result")
+          if [ "$(jq -r .ok <<<"$result")" != "true" ]; then gh issue comment "$ISSUE" --body "⚠️ $msg"; exit 0; fi
+          verb=$(awk '{print $1; exit}' <<<"$TEXT")
+          commit_push "inbox: ${verb} ${file} (#${ISSUE})"
+          if [ "$(jq -r '.close // false' <<<"$result")" = "true" ]; then
+            reason=completed; [ "$verb" = "/reject" ] && reason="not planned"
+            gh issue close "$ISSUE" --reason "$reason" --comment "$msg"
+          else
+            refresh_issue "$ISSUE" "$file"
+            gh issue comment "$ISSUE" --body "$msg"
+          fi
+
+      - name: Issues mit inbox/ abgleichen
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          set -euo pipefail
+          source "$RUNNER_TEMP/lib.sh"
+          gh issue list --label inbox --state open --limit 500 --json number,body > "$RUNNER_TEMP/issues.json"
+          python3 scripts/inbox_bot.py list > "$RUNNER_TEMP/files.json"
+          # Datei → Issue-Nummer
+          python3 - "$RUNNER_TEMP/issues.json" "$RUNNER_TEMP/files.json" > "$RUNNER_TEMP/plan.tsv" <<'PY'
+          import json, re, sys
+          issues = json.load(open(sys.argv[1])); files = json.load(open(sys.argv[2]))
+          by_file = {}
+          for i in issues:
+              m = re.search(r"inbox-file:(\S+?) -->", i.get("body") or "")
+              if m: by_file.setdefault(m.group(1), i["number"])
+          known = {f["file"] for f in files}
+          for f in files:
+              print(f"keep\t{f['file']}\t{by_file.get(f['file'], '')}\t{f['name']}")
+          for path, num in by_file.items():
+              if path not in known:
+                  print(f"gone\t{path}\t{num}\t")
+          PY
+          while IFS=$'\t' read -r action file num name; do
+            if [ "$action" = gone ]; then
+              gh issue close "$num" --reason completed --comment "Draft \`$file\` liegt nicht mehr in \`inbox/\` (freigegeben, verschoben oder gelöscht)." >/dev/null
+            elif [ -z "$num" ]; then
+              python3 scripts/inbox_bot.py summary --file "$file" > "$RUNNER_TEMP/body.md"
+              gh issue create --title "Übung prüfen: $name" --label inbox --body-file "$RUNNER_TEMP/body.md" >/dev/null
+              echo "Issue angelegt: $file"
+            else
+              refresh_issue "$num" "$file"
+            fi
+          done < "$RUNNER_TEMP/plan.tsv"

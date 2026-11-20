@@ -1,58 +1,50 @@
-# Exercise Inbox — wer macht was (Stand 2026-11-10)
+# Exercise Inbox — läuft auf GitHub (Stand 2026-11-20)
 
-Zwei getrennte Flächen. **Nicht vermischen.**
+**Dieses Repo ist die Quelle der Wahrheit für die Übungs-Inbox.** Alles geht im
+Browser oder in der GitHub-App am Handy — kein Laptop, keine Coach-App nötig.
+Laptop-Kopien (`coach-dev/backend/fitness/catalog/kb`) sind nur Spiegel.
 
-| Fläche | Für wen | Rolle |
-|--------|---------|--------|
-| **GitHub** (`nimmsel23/fitness`) | GitHub App, LLM-Webapps, Coding-Agents | Drafts anlegen/anreichern/reviewen als PRs unter `inbox/` |
-| **Coach (Laptop)** | Daniel / Coach-UI / `coach-sync` / `coach catalog` | Menschliches Expert-Gate → Freigabe nach `exercises/` |
+## So arbeitest du
 
-Git ist **nicht** die Steuerfläche der Coach-UI. vos-coach steuert keine
-`repository_dispatch`-Calls und kein PR-Merge als Freigabe-Workflow.
+| Was | Wie |
+|-----|-----|
+| **Neue Übung** | Issue → Vorlage **„Neue Übung“** ausfüllen. Der Bot legt `inbox/inbox_<name>.yml` an, reichert mit KI an und benennt das Issue in „Übung prüfen: …“ um. |
+| **Prüfen** | Jeder Draft hat genau ein offenes Issue (Label `inbox`). Oben steht die Zusammenfassung: Muskeln, Quellen, Coaching-Notizen, Fehlerbilder. |
+| **Schnell korrigieren** | Im Issue auf „✏️ Datei bearbeiten“ → Commit nach `main`. Das Issue aktualisiert sich selbst. |
+| **Befehle** | Als Kommentar im Issue (eine Zeile): |
 
-## GitHub / Agents (Draft-Arbeit)
+| Befehl | Wirkung |
+|--------|---------|
+| `/approve` | Freigabe → `exercises/<id>.yml` (`source: expert`), Draft weg, Issue zu. Verweigert, wenn Name oder Primär-Muskeln fehlen. |
+| `/reenrich <Feedback>` | KI überarbeitet den Draft mit deinem Feedback. |
+| `/unlink wger` · `/unlink yuhonas` | Falsche Quelle dauerhaft trennen (`source_selection: null`, entfernt übernommene Rohtexte/Bilder). Überlebt jedes Re-Enrich. |
+| `/link wger <id>` · `/link yuhonas <id>` | Quelle setzen. |
+| `/name <Deutscher Name>` | Namen ändern. |
+| `/reject` | Draft löschen, Issue zu. |
 
-| Aktion | Auf GitHub |
-|--------|------------|
-| Neuer Draft | Branch + PR: `inbox/<id>.yml` (noch nicht in `exercises/`) |
-| Anreichern | CI `Enrich Inbox`, Prompt `.github/prompts/enrich-inbox.md`, oder Agent-Commit auf dem PR-Branch |
-| Review | PR Conversation / Checks |
-| Verwerfen | PR schließen |
-| Nach Merge von Inbox-PRs | Datei liegt weiter in `inbox/` — **Merge ≠ Expert-Approve** |
+Nur Owner/Collaborators können Befehle auslösen (das Repo ist öffentlich).
 
-Hilfen im Repo:
+## Technik
 
-- Workflow: `.github/workflows/enrich-inbox.yml`
-- Prompt: `.github/prompts/enrich-inbox.md`
-- Skript: `scripts/enrich_inbox.py`
-- Offene Inbox-PRs listen: `scripts/list_inbox_prs.py`
+- Workflow: `.github/workflows/inbox-bot.yml` (Issue geöffnet · Kommentar · Push auf `inbox/**` · manuell)
+- Logik: `scripts/inbox_bot.py` (`new`, `command`, `summary`, `list`)
+- KI: `scripts/enrich_inbox.py` (Gemini, Secret `GEMINI_API_KEY`); hält
+  `source_selection` und Identitätsfelder fest
+- Abgleich: jeder Push auf `inbox/**` legt fehlende Issues an, aktualisiert
+  bestehende und schließt Issues, deren Datei nicht mehr da ist.
+  Manuell: Actions → Inbox-Bot → Run workflow.
+- Agents/LLM-Webapps dürfen weiter Drafts als PR unter `inbox/` liefern
+  (`enrich-inbox.yml`, Prompt `.github/prompts/enrich-inbox.md`); nach dem
+  Merge bekommt der Draft automatisch sein Issue.
 
-## Coach (Expert-Gate)
+## Weg in die App
 
-| Aktion | Auf dem Laptop |
-|--------|----------------|
-| Inbox lesen / reviewen | Coach-UI, Catalog-UI, `coach catalog` / `fitness-catalog inbox …` |
-| Anreichern (primär) | `coach-sync` + lokale Pipeline (Gemini/CLI) |
-| Freigabe | `approve` → Datei nach `exercises/<id>.yml` (+ Build zieht Expert-JS) |
-| Firestore `coachInbox` / `fitness/*/inbox` | Cache / Offline-Spiegel, **nicht** Gate und **nicht** Agent-SOT |
+Die Coach-App baut ihren Katalog beim Build aus diesem Repo (`main`). Eine
+Freigabe erscheint dort mit dem nächsten Coach-Deploy.
 
-Optional: vos-coach darf offene GitHub-Inbox-PRs **read-only** einblenden
-(`listGithubInboxPrs`) — nur Überblick. Approve/Reenrich/Delete für PR-Items
-öffnen GitHub bzw. verweisen dorthin; sie ersetzen das Laptop-Gate nicht.
-
-## Nahtstelle
-
-1. Agent/GitHub App liefert oder verbessert `inbox/*.yml` per PR.
-2. Nach Merge (oder parallelem Sync) liegt der Draft in der KB / im Submodul.
-3. Coach approved lokal → `exercises/`.
-4. Konsumenten (`coach-dev` / `fitness-dev`) bumpen den Submodul-Pointer und bauen.
-
-## Bulk-Rohstoff (nicht Gate)
+## Bulk-Rohstoff (kein Gate)
 
 | Quelle | In der KB |
 |--------|-----------|
 | **yuhonas** | Submodul `vendor/free-exercise-db` (`yuhonas.ref`) → `dist/exercises.json` |
 | **wger** | Dump `exercises/unreviewed_wger.yml` |
-
-Inbox-Drafts tragen `wger_id` / `yuhonas_id`. Expert-Truth erst nach Coach-Gate
-in `exercises/<id>.yml`.

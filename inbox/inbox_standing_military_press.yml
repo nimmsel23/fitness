@@ -1,0 +1,108 @@
+name: inbox_standing_military_press
+description: 'Recherchierter Wochenbeitrag: Schulterblattmechanik und Technik; Nachholung des fehlenden
+  Inbox-Drafts vom 2026-11-16. Menschliche Prüfung ausstehend.'
+generated_at: '2026-11-23T07:56:11.191361+00:00'
+enriched_at: '2026-11-23T07:56:11.191361+00:00'
+exercises:
+- name: Schulterdrücken stehend mit Langhantel
+  exercise_id: standing_military_press
+  id: standing_military_press
+  german: Schulterdrücken stehend mit Langhantel
+  display_name: Schulterdrücken stehend mit Langhantel
+  english: Standing Military Press
+  aliases:
+  - Strict Press
+  - Overhead Press
+  - Schulterdrücken ohne Beinschwung
+  search_aliases:
+  - Military Press
+  - Überkopfdrücken
+  - Standing Barbell Overhead Press
+  category: push
+  movements:
+  - shoulder_flexion
+  - shoulder_abduction
+  - elbow_extension
+  equipment:
+  - barbell
+  primary_muscles:
+  - 301_anterior_deltoid
+  - 302_lateral_deltoid
+  - 401_triceps_brachii
+  secondary_muscles:
+  - 102_pectoralis_major_clavicular
+  - 105_serratus_anterior
+  - 202_trapezius
+  stabilizers:
+  - 304_rotator_cuff
+  - 504_transverse_abdominis
+  - 206_erector_spinae
+  - 603_gluteus_maximus
+  wger_id: null
+  yuhonas_id: Standing_Military_Press
+  external_ids:
+    yuhonas:
+    - Standing_Military_Press
+  source_selection:
+    wger: null
+    yuhonas: Standing_Military_Press
+  origin:
+    type: external
+    source_refs:
+      yuhonas:
+      - Standing_Military_Press
+  coaching_notes:
+  - Rack auf obere Brusthöhe einstellen; Obergriff etwas außerhalb der Schulterbreite, Unterarme unten
+    annähernd senkrecht. Hantel vor dem Kopf starten, nicht hinter dem Nacken.
+  - Füße stabil aufstellen, Gesäß und Rumpf anspannen; Rippen über dem Becken halten. Knie und Hüfte liefern
+    beim Strict Press keinen Streckimpuls.
+  - Stange nah am Gesicht drücken; Kopf kurz zurücknehmen und nach Passieren der Stirn wieder unter die
+    Hantel führen. Am Ende über dem Mittelfuß balancieren, Ellbogen kontrolliert strecken.
+  - 'Scapulae beim Armheben aufwärts rotieren lassen; M. serratus anterior und M. trapezius koordinieren
+    den Schultergürtel. Nicht dauerhaft maximal hinten-unten fixieren. Grundlage: Phadke V, Camargo PR,
+    Ludewig PM (2009): Scapular and rotator cuff muscle activity during arm elevation: A review of normal
+    function and alterations with shoulder impingement. Braz J Phys Ther 13(1):1–9. https://doi.org/10.1590/S1413-35552009005000012'
+  - 'Armhebung umfasst Articulatio glenohumeralis, das funktionelle scapulothorakale Gleitlager sowie
+    Articulationes acromioclavicularis und sternoclavicularis; kein starrer 2:1-Rhythmus als Technikvorgabe.
+    Grundlage: Ludewig PM, Reynolds JF (2009): The association of scapular kinematics and glenohumeral
+    joint pathologies. JOSPT 39(2):90–104. https://doi.org/10.2519/jospt.2009.2808'
+  - M. deltoideus (pars clavicularis/acromialis) unterstützt die Oberarmelevation; M. triceps brachii
+    streckt den Ellbogen. Die Rotatorenmanschette stabilisiert den Humeruskopf dynamisch; kontrolliert
+    zur oberen Brust zurücksenken.
+  - 'EMG-Einordnung: Coratella G, Tornatore G, Longo S, Esposito F, Cè E (2022): Front vs Back and Barbell
+    vs Machine Overhead Press: An Electromyographic Analysis and Implications For Resistance Training.
+    Front Physiol 13:825880. https://doi.org/10.3389/fphys.2022.825880. Acht Bodybuilder, sitzende Varianten;
+    akute Erregungsunterschiede belegen keine langfristige Hypertrophie oder individuelle Sicherheit der
+    stehenden Variante.'
+  - 'Technikvorschlag, kein studienspezifisches Rezept: zunächst 2–3 Sätze à 5–8 Wiederholungen mit 2–4
+    Wiederholungen in Reserve; steigern erst bei stabiler schmerzfreier Ausführung.'
+  - 'Quellenabgleich: Wger 566 ist laut lokalem Snapshot sitzend und deshalb ausgeschlossen. Wger 687
+    ist nur als Overhead Press ohne belastbare Standdefinition dokumentiert; keine automatische Gleichsetzung.
+    Yuhonas Standing_Military_Press wurde am gepinnten Submodul geprüft.'
+  - 'Begleitnotiz: 2026-11-16_Schulterdruecken_Schulterblattmechanik-Technik.md (vorhandene Obsidian-Notiz;
+    keine zweite Wochen-Notiz).'
+  common_errors:
+  - 'Zunehmendes Hohlkreuz/Rippenvorschub: Last senken, Rumpfspannung neu aufbauen und Überkopfposition
+    ohne Ausweichen prüfen.'
+  - 'Stange weit vor dem Körper: Bahn näher am Gesicht führen und oben über der Unterstützungsfläche ausbalancieren.'
+  - 'Scapulae hinten-unten einklemmen: kontrollierte Aufwärtsrotation beim Armheben zulassen, nicht durch
+    Lendenextension kompensieren.'
+  - 'Handgelenke stark abgeknickt: Stange näher über der Unterarmachse halten und Griffbreite anpassen.'
+  - 'Beinantrieb statt Strict Press: Last reduzieren und aus ruhigem Stand beginnen; Push Press separat
+    führen.'
+  - 'Stechender oder zunehmender Schmerz: Satz abbrechen, schmerzfreie Variante/Bewegungsamplitude wählen
+    und anhaltende Beschwerden fachlich abklären.'
+  variations: []
+  tags:
+  - unreviewed
+  - yuhonas
+  - weekly_catalog
+  - scapular_mechanics
+  - ci_enrichment
+  source: unreviewed
+  schema_version: 2026-08-12.exercise-v1
+  enriched_at: '2026-11-23T07:56:11.191361+00:00'
+  review_state:
+    status: draft
+    ai_reviewed: false
+    enriched_at: '2026-11-23T07:56:11.191361+00:00'

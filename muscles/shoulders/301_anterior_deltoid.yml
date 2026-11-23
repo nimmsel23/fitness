@@ -12,7 +12,11 @@ viz:
     ids:
     - shoulder-front-left
     - shoulder-front-right
-origin: Clavicula (lateraler Anteil), Acromion, Spina scapulae
+origin: Vorderrand und obere Fläche des lateralen Drittels der Clavicula (pars clavicularis).
 insertion: Tuberositas deltoidea humeri
 innervation: Nervus axillaris (C5, C6)
-function: Primärer Beweger für die Flexion und Anteversion des Arms im Schultergelenk.
+function: 'Flexion/Anteversion des Oberarms im Schultergelenk; Beteiligung an Elevation abhängig von Armstellung
+  und Bewegungsebene. Beim vorderen Überkopfdrücken zusammen mit weiteren Deltoidanteilen und Ellbogenstreckern
+  aktiv. EMG-Grundlage, kein Hypertrophienachweis: Coratella G, Tornatore G, Longo S, Esposito F, Cè E
+  (2022): Front vs Back and Barbell vs Machine Overhead Press: An Electromyographic Analysis and Implications
+  For Resistance Training. Front Physiol 13:825880. https://doi.org/10.3389/fphys.2022.825880'

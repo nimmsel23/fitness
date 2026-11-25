@@ -48,3 +48,21 @@ Freigabe erscheint dort mit dem nächsten Coach-Deploy.
 |--------|-----------|
 | **yuhonas** | Submodul `vendor/free-exercise-db` (`yuhonas.ref`) → `dist/exercises.json` |
 | **wger** | Dump `exercises/unreviewed_wger.yml` |
+
+## Quellenfusion (Owner 2026-11-25)
+
+Ein Katalogeintrag führt die passende wger- und yuhonas-Übung zusammen.
+Beide Quellen-IDs, Rohdaten und Herkunft bleiben dabei nachvollziehbar erhalten.
+Unterschiedliche Namen oder eine ergänzte Griffvariante sind allein kein Grund,
+beide Quellen pauschal mit `source_selection: null` zu sperren.
+
+- Passende Quellen über `wger_id`, `yuhonas_id`, `external_ids` und
+  `source_selection` konsistent demselben Draft zuordnen.
+- Beschreiben Quellen nur die Basisübung, die Abweichung der ausgearbeiteten
+  Variante ausdrücklich unter `origin.variant_note` dokumentieren. Originale
+  unter `source_snapshot` unverändert erhalten.
+- Falsche Zuordnungen korrigieren; nicht beliebige Varianten als identisch behandeln.
+  `/unlink` bleibt für konkret verworfene Quellen verfügbar, ist kein Standard
+  beim Anlegen oder Anreichern eines Drafts.
+- Nach Änderung der Quellen `source_review_required: true` setzen. Fusion allein
+  ist keine Expert-Freigabe.

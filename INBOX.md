@@ -49,20 +49,16 @@ Freigabe erscheint dort mit dem nächsten Coach-Deploy.
 | **yuhonas** | Submodul `vendor/free-exercise-db` (`yuhonas.ref`) → `dist/exercises.json` |
 | **wger** | Dump `exercises/unreviewed_wger.yml` |
 
-## Quellenfusion (Owner 2026-11-25)
+## Quellen zusammenführen (Coach)
 
-Ein Katalogeintrag führt die passende wger- und yuhonas-Übung zusammen.
-Beide Quellen-IDs, Rohdaten und Herkunft bleiben dabei nachvollziehbar erhalten.
-Unterschiedliche Namen oder eine ergänzte Griffvariante sind allein kein Grund,
-beide Quellen pauschal mit `source_selection: null` zu sperren.
+Wie beim Zusammenführen von Kontakten: Kandidaten suchen und vergleichen,
+wger-/yuhonas-Einträge ausdrücklich auswählen, dann gemeinsam speichern.
+Vorschläge dürfen abgelehnt, wieder eingeblendet oder durch andere Kandidaten
+ersetzt werden. Ablehnungen stehen unter `source_rejections`; sie entfernen
+keine bereits verknüpfte Quelle. `source_selection` beschreibt ausschließlich
+die bestätigte Zuordnung. Originale bleiben unter `source_snapshot` erhalten.
 
-- Passende Quellen über `wger_id`, `yuhonas_id`, `external_ids` und
-  `source_selection` konsistent demselben Draft zuordnen.
-- Beschreiben Quellen nur die Basisübung, die Abweichung der ausgearbeiteten
-  Variante ausdrücklich unter `origin.variant_note` dokumentieren. Originale
-  unter `source_snapshot` unverändert erhalten.
-- Falsche Zuordnungen korrigieren; nicht beliebige Varianten als identisch behandeln.
-  `/unlink` bleibt für konkret verworfene Quellen verfügbar, ist kein Standard
-  beim Anlegen oder Anreichern eines Drafts.
-- Nach Änderung der Quellen `source_review_required: true` setzen. Fusion allein
-  ist keine Expert-Freigabe.
+Die unreviewed Rohdaten werden nie gelöscht. Erst ein freigegebener Expert-Eintrag
+verdrängt seine bestätigten Quellen in der clientseitigen Suche. Eine entfernte
+Zuordnung gibt den Rohling wieder frei, sofern kein anderer Expert ihn verdrängt.
+Ähnliche Namen sind Vorschläge, keine automatische Fusionsentscheidung.

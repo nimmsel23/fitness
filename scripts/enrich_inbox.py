@@ -167,12 +167,12 @@ def merge_enrichment(base: dict, enriched: dict) -> dict:
     # Preserve identity / provenance always.
     for key in (
         "exercise_id", "id", "wger_id", "yuhonas_id", "external_ids", "origin",
-        "source", "schema_version", "source_selection",
+        "source", "schema_version", "source_selection", "source_rejections", "source_snapshot", "source_review_required",
     ):
         if key in base:
             out[key] = base[key]
     for key, value in enriched.items():
-        if key in ("exercise_id", "id", "wger_id", "yuhonas_id", "external_ids", "origin", "source_selection"):
+        if key in ("exercise_id", "id", "wger_id", "yuhonas_id", "external_ids", "origin", "source_selection", "source_rejections", "source_snapshot", "source_review_required"):
             continue
         out[key] = value
     if out.get("german") and not out.get("display_name"):

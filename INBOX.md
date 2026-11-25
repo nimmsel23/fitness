@@ -48,3 +48,17 @@ Freigabe erscheint dort mit dem nächsten Coach-Deploy.
 |--------|-----------|
 | **yuhonas** | Submodul `vendor/free-exercise-db` (`yuhonas.ref`) → `dist/exercises.json` |
 | **wger** | Dump `exercises/unreviewed_wger.yml` |
+
+## Quellen zusammenführen (Coach)
+
+Wie beim Zusammenführen von Kontakten: Kandidaten suchen und vergleichen,
+wger-/yuhonas-Einträge ausdrücklich auswählen, dann gemeinsam speichern.
+Vorschläge dürfen abgelehnt, wieder eingeblendet oder durch andere Kandidaten
+ersetzt werden. Ablehnungen stehen unter `source_rejections`; sie entfernen
+keine bereits verknüpfte Quelle. `source_selection` beschreibt ausschließlich
+die bestätigte Zuordnung. Originale bleiben unter `source_snapshot` erhalten.
+
+Die unreviewed Rohdaten werden nie gelöscht. Erst ein freigegebener Expert-Eintrag
+verdrängt seine bestätigten Quellen in der clientseitigen Suche. Eine entfernte
+Zuordnung gibt den Rohling wieder frei, sofern kein anderer Expert ihn verdrängt.
+Ähnliche Namen sind Vorschläge, keine automatische Fusionsentscheidung.

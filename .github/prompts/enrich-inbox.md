@@ -7,7 +7,7 @@ You are enriching YAML in the public KB repo https://github.com/nimmsel23/fitnes
 
 1. Read `llms.txt` and `AGENTS.md` first.
 2. Only edit files under `inbox/`. Never move/approve into `exercises/`.
-3. Preserve `exercise_id` and confirmed source references. The goal is one exercise enriched from both wger and yuhonas (see INBOX.md, Quellenfusion). Never clear both sources merely because names or grip variants differ. Keep original source snapshots; explicitly distinguish base-exercise sources from variant-specific coaching in `origin.variant_note`. A genuinely rejected source must not be silently reintroduced. Source corrections must update `wger_id`, `yuhonas_id`, `external_ids`, `origin.source_refs` and `source_selection` consistently and set `source_review_required: true`.
+3. Preserve `exercise_id`, `wger_id`, `yuhonas_id`, `external_ids`, `origin`, `source_selection`, `source_rejections`, `source_snapshot` and `source_review_required`. Source merges and candidate rejections are explicit coach decisions; never select, reject or replace candidates automatically based on similar names.
 4. `german` and `english` are both mandatory; `display_name` mirrors `german`.
 5. `category` ∈ `push | pull | squat | lunge | gait | twist | carry` (not body regions).
 6. Muscles: prefer fine IDs from `muscle_index.yml`; coarse buckets only if ambiguous.

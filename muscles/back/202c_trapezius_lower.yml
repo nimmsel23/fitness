@@ -5,8 +5,22 @@ label_en: Traps (Lower)
 label_lat: M. trapezius (pars ascendens)
 wger_id: 9
 parent: 202_trapezius
-aliases: [lower trapezius, unterer trapezmuskel, trapezius lower]
+aliases:
+- lower trapezius
+- unterer trapezmuskel
+- trapezius lower
 viz:
   body_muscles:
     view: BACK
-    ids: [traps-upper-left, traps-mid-left, traps-lower-left, traps-upper-right, traps-mid-right, traps-lower-right]
+    ids:
+    - traps-upper-left
+    - traps-mid-left
+    - traps-lower-left
+    - traps-upper-right
+    - traps-mid-right
+    - traps-lower-right
+function: 'Pars ascendens: trägt im Zusammenspiel mit M. serratus anterior und oberem Trapezius zur Aufwärtsrotation
+  und Stabilisierung der Scapula bei. Depression ist eine Teilfunktion, keine Vorgabe zur dauerhaften
+  Schulterblattfixierung beim Überkopfdrücken. Grundlage: Phadke V, Camargo PR, Ludewig PM (2009): Scapular
+  and rotator cuff muscle activity during arm elevation: A review of normal function and alterations with
+  shoulder impingement. Braz J Phys Ther 13(1):1–9. https://doi.org/10.1590/S1413-35552009005000012'

@@ -4,6 +4,16 @@ display_name: Rotator Cuff
 label_de: Rotatorenmanschette
 label_en: Rotator Cuff
 label_lat: Musculi cuffiae musculotendineae
-wger_id: ~
-aliases: [rotatorenmanschette, rotator cuff, RM, sits, sits muscles]
-viz: ~
+wger_id: null
+aliases:
+- rotatorenmanschette
+- rotator cuff
+- RM
+- sits
+- sits muscles
+viz: null
+function: 'M. supraspinatus, M. infraspinatus, M. teres minor und M. subscapularis stabilisieren den Humeruskopf
+  durch koordinierte Kompression und Gegenkräfte während der Armhebung; zusätzlich Abduktions- bzw. Innen-/Außenrotationsmomente.
+  Keine scapuläre Depressoren-Gruppe. Grundlage: Phadke V, Camargo PR, Ludewig PM (2009): Scapular and
+  rotator cuff muscle activity during arm elevation: A review of normal function and alterations with
+  shoulder impingement. Braz J Phys Ther 13(1):1–9. https://doi.org/10.1590/S1413-35552009005000012'
